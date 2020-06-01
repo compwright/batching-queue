@@ -1,0 +1,49 @@
+{
+  "name": "batching-queue",
+  "version": "1.0.0",
+  "description": "Batching queue",
+  "keywords": [
+    "queue",
+    "batching"
+  ],
+  "author": "Jonathon Hill <jhill9693@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "url": "https://github.com/compwright/batching-queue"
+  },
+  "engines": {
+    "node": ">= 8",
+    "npm": ">= 3"
+  },
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "lint": "semistandard src/**/*.js tests/**/*.js --fix",
+    "mocha": "mocha ./tests",
+    "coverage": "nyc npm run mocha",
+    "test": "npm run lint && npm run coverage"
+  },
+  "devDependencies": {
+    "mocha": "^7.2.0",
+    "nyc": "^15.1.0",
+    "semistandard": "^14.2.0"
+  },
+  "semistandard": {
+    "env": [
+      "mocha"
+    ]
+  },
+  "nyc": {
+    "cache": true,
+    "cacheDir": ".nyc_cache",
+    "include": [
+      "src/**/*.js"
+    ],
+    "reporter": [
+      "lcov",
+      "text"
+    ]
+  }
+}
