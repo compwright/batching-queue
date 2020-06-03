@@ -21,28 +21,28 @@ describe('BatchingQueue', () => {
       assert.strictEqual(null, queue.length);
     });
 
-    it('returns the number of items when the store is ready', () => {
-      store.setup();
-      assert.strictEqual(0, queue.length);
+    it('returns the number of items when the store is ready', async () => {
+      await store.setup();
+      assert.strictEqual(0, await queue.length);
     });
   });
 
   describe('enqueue(item)', () => {
-    it('calls setup() on stores that have not been setup yet', () => {
+    it('calls setup() on stores that have not been setup yet', async () => {
       const store = new MemoryStore();
       const queue = new BatchingQueue({ store, batchSize: 4 });
 
       assert(!store.ready);
-      queue.enqueue('a');
+      await queue.enqueue('a');
       assert(store.ready);
     });
 
-    it('queues items one by one', () => {
-      queue.enqueue('a');
+    it('queues items one by one', async () => {
+      await queue.enqueue('a');
     });
 
-    it('tracks the number of waiting batches', () => {
-      assert.strictEqual(1, queue.length);
+    it('tracks the number of waiting batches', async () => {
+      assert.strictEqual(1, await queue.length);
     });
 
     it('emits an event every time a new batch is ready', (done) => {
@@ -63,23 +63,23 @@ describe('BatchingQueue', () => {
   });
 
   describe('dequeue()', () => {
-    it('calls setup() on stores that have not been setup yet', () => {
+    it('calls setup() on stores that have not been setup yet', async () => {
       const store = new MemoryStore();
       const queue = new BatchingQueue({ store, batchSize: 4 });
 
       assert(!store.ready);
-      queue.dequeue();
+      await queue.dequeue();
       assert(store.ready);
     });
 
-    it('dequeues jobs in batches', () => {
-      assert.strictEqual(store.length, 16);
-      assert.strictEqual(queue.length, 4);
+    it('dequeues jobs in batches', async () => {
+      assert.strictEqual(await store.length, 16);
+      assert.strictEqual(await queue.length, 4);
 
-      const batch = queue.dequeue();
+      const batch = await queue.dequeue();
 
-      assert.strictEqual(queue.length, 3);
-      assert.strictEqual(store.length, 12);
+      assert.strictEqual(await queue.length, 3);
+      assert.strictEqual(await store.length, 12);
 
       assert.strictEqual(batch.length, 4);
       assert.deepStrictEqual(batch, ['a', 1, 2, 3]);

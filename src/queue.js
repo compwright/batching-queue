@@ -12,12 +12,12 @@ class BatchingQueue extends EventEmitter {
         this.batchSize = config.batchSize
     }
 
-    enqueue(item) {
+    async enqueue(item) {
         if (!this.store.ready) {
-            this.store.setup()
+            await this.store.setup()
         }
 
-        const newSize = this.store.enqueue(item)
+        const newSize = await this.store.enqueue(item)
 
         // Emit a 'drain' event every batchSize items
         if (newSize > 0 && newSize % this.batchSize === 0) {
@@ -25,12 +25,12 @@ class BatchingQueue extends EventEmitter {
         }
     }
 
-    dequeue() {
+    async dequeue() {
         if (!this.store.ready) {
-            this.store.setup()
+            await this.store.setup()
         }
 
-        return this.store.dequeue(this.batchSize)
+        return await this.store.dequeue(this.batchSize)
     }
 
     get length() {
@@ -38,7 +38,8 @@ class BatchingQueue extends EventEmitter {
             return null
         }
 
-        return Math.ceil(this.store.length / this.batchSize)
+        return Promise.resolve(this.store.length)
+            .then(length => Math.ceil(length / this.batchSize))
     }
 }
 

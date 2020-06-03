@@ -16,6 +16,12 @@ A batching queue for items that need to be enqueued one by one, but dequeued in 
 npm install batching-queue
 ```
 
+## Included Storage Backends
+
+* MemoryStore - stores items in an array (not for production use)
+* AsyncMemoryStore - same as MemoryStore, but with async methods
+* RedisStore - stores items in Redis
+
 ## Example Usage
 
 ```javascript
@@ -72,7 +78,7 @@ Property reports the number of batches waiting in the queue.
 
 ### Storage Backend Interface
 
-An array-backed MemoryStore is provided as a reference implementation. You will need to implement your own storage backend following this interface to interface your database or cache.
+You may to implement your own storage backend to interface your database or cache. See the bundled MemoryStore or AsyncMemoryStore for a reference.
 
 #### setup()
 
@@ -103,6 +109,17 @@ Return the number of items in the store.
 #### ready
 
 Return `true` if ready and setup, otherwise, return `false`.
+
+### RedisStore
+
+The RedisStore class has the following additional methods:
+
+#### constructor(config)
+
+Config:
+
+* `redisClient` (required) Instance of [node-redis](https://npmjs.org/package/redis)
+* `name` Queue list key name, will be randomized if omitted
 
 ## License
 
