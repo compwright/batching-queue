@@ -22,6 +22,9 @@ class BatchingQueue extends EventEmitter {
         // Emit a 'drain' event every batchSize items
         if (newSize > 0 && newSize % this.batchSize === 0) {
             this.emit('drain', this.length)
+            return true
+        } else {
+            return false
         }
     }
 

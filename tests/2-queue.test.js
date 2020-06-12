@@ -45,20 +45,21 @@ describe('BatchingQueue', () => {
       assert.strictEqual(1, await queue.length);
     });
 
-    it('emits an event every time a new batch is ready', (done) => {
+    it('emits an event every time a new batch is ready', async () => {
       const expectedEventCount = 4;
-      let eventCount = 0;
+      const events = [];
 
-      queue.on('drain', () => {
-        eventCount++;
-        if (eventCount === expectedEventCount) {
-          done();
+      queue.on('drain', e => events.push(e));
+
+      for (var i = 1, j = 0; i <= 15; i++) {
+        const eventEmitted = await queue.enqueue(i);
+        if (eventEmitted === true) {
+          j++;
         }
-      });
-
-      for (var i = 1; i <= 15; i++) {
-        queue.enqueue(i);
       }
+
+      assert.strictEqual(events.length, expectedEventCount);
+      assert.strictEqual(j, expectedEventCount);
     });
   });
 

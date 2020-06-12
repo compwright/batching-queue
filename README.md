@@ -64,7 +64,7 @@ Config:
 
 #### enqueue(item)
 
-Adds an item to the queue.
+Adds an item to the queue. Returns `true` if a batch is full, otherwise returns `false`.
 
 #### dequeue()
 
