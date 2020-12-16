@@ -51,7 +51,8 @@ describe('BatchingQueue', () => {
 
       queue.on('drain', e => events.push(e));
 
-      for (var i = 1, j = 0; i <= 15; i++) {
+      let j = 0;
+      for (let i = 1; i <= 15; i++) {
         const eventEmitted = await queue.enqueue(i);
         if (eventEmitted === true) {
           j++;
