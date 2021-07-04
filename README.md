@@ -28,30 +28,34 @@ npm install batching-queue
 ## Example Usage
 
 ```javascript
-const { BatchingQueue, MemoryStore } = require('batching-queue')
+const {BatchingQueue, MemoryStore} = require('batching-queue')
 
 const queue = new BatchingQueue({
-    store: new MemoryStore(),
-    batchSize: 12
+  store: new MemoryStore(),
+  batchSize: 12
 })
 
-function drain(batchesWaiting) {
-    console.log(batchesWaiting, 'batches waiting')
-    for (var i = 0; i < batchesWaiting; i++) {
-        const batch = queue.dequeue()
-        console.log(batch)
-    }
+const drain = async (batchesWaiting) => {
+  const result = await batchesWaiting
+  console.log(result, 'batches waiting')
+
+  for (let i = 0; i < result; i++) {
+    const batch = await queue.dequeue()
+    console.log(batch, 'batch')
+  }
 }
 
-// drain batches every 12 items
-queue.on('drain', drain)
+(async () => {
+  // drain remaining batches immediately
+  drain(queue.length)
 
-for (var i = 0; i < 10000; i++) {
-    queue.enqueue(i)
-}
+  // drain batches every 12 items
+  queue.on('drain', drain)
 
-// drain remaining batches immediately
-drain(queue.length)
+  for (var i = 0; i < 1000; i++) {
+    await queue.enqueue(i)
+  }
+})()
 ```
 
 ## API
