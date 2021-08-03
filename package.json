@@ -34,7 +34,8 @@
     "nanoid": "^3.1.23"
   },
   "devDependencies": {
-    "mocha": "^8.4.0",
+    "ioredis": "^4.27.7",
+    "mocha": "^9.0.3",
     "nyc": "^15.1.0",
     "redis": "^3.1.2",
     "semistandard": "*"

@@ -128,6 +128,17 @@ Config:
 * `redisClient` (required) Instance of [node-redis](https://npmjs.org/package/redis)
 * `name` Queue list key name, will be randomized if omitted
 
+### IoredisStore
+
+The RedisStore class has the following additional methods:
+
+#### constructor(config)
+
+Config:
+
+* `redisClient` (required) Instance of [ioredis](https://npmjs.org/package/ioredis)
+* `name` Queue list key name, will be randomized if omitted
+
 ## License
 
 MIT License

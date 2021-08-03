@@ -1,5 +1,6 @@
 module.exports = {
   MemoryStore: require('./memory'),
   AsyncMemoryStore: require('./async-memory'),
-  RedisStore: require('./redis')
+  RedisStore: require('./redis'),
+  IoredisStore: require('./ioredis')
 };

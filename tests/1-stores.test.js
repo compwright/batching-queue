@@ -97,29 +97,37 @@ function runTestSuite (store) {
   });
 }
 
+function testRedisStore (Store, redisClient) {
+  redisClient.on('error', (error) => {
+    throw error;
+  });
+
+  describe('name', () => {
+    it('accepts a queue name', () => {
+      const store = new Store({ name: 'test', redisClient });
+      assert.deepStrictEqual(store.name, 'test');
+    });
+
+    it('auto-generates a queue name if none is given', () => {
+      const store = new Store({ redisClient });
+      assert(store.name);
+    });
+  });
+
+  runTestSuite(new Store({ redisClient }));
+
+  after((done) => {
+    redisClient.quit(done);
+  });
+}
+
 for (const Store of Object.values(stores)) {
   describe(Store.name, () => {
     if (Store.name === 'RedisStore') {
-      const redisClient = require('redis').createClient();
-      redisClient.on('error', (error) => {
-        throw error;
-      });
-
-      describe('name', () => {
-        it('accepts a queue name', () => {
-          const store = new Store({ name: 'test', redisClient });
-          assert.deepStrictEqual(store.name, 'test');
-        });
-
-        it('auto-generates a queue name if none is given', () => {
-          const store = new Store({ redisClient });
-          assert(store.name);
-        });
-      });
-
-      runTestSuite(new Store({ redisClient }));
-
-      after((done) => redisClient.quit(done));
+      testRedisStore(Store, require('redis').createClient());
+    } else if (Store.name === 'IoredisStore') {
+      const Redis = require('ioredis');
+      testRedisStore(Store, new Redis());
     } else {
       runTestSuite(new Store());
     }
