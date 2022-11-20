@@ -30,9 +30,6 @@
     "coverage": "nyc npm run mocha",
     "test": "npm run lint && npm run coverage"
   },
-  "dependencies": {
-    "nanoid": "^3.2.0"
-  },
   "devDependencies": {
     "ioredis": "^4.28.3",
     "mocha": "latest",

@@ -107,14 +107,9 @@ function testRedisStore (Store, redisClient) {
       const store = new Store({ name: 'test', redisClient });
       assert.deepStrictEqual(store.name, 'test');
     });
-
-    it('auto-generates a queue name if none is given', () => {
-      const store = new Store({ redisClient });
-      assert(store.name);
-    });
   });
 
-  runTestSuite(new Store({ redisClient }));
+  runTestSuite(new Store({ name: 'test', redisClient }));
 
   after((done) => {
     redisClient.quit(done);

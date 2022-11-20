@@ -1,12 +1,15 @@
 const assert = require('assert');
-const { customAlphabet } = require('nanoid');
-
-const nanoid = customAlphabet('0123456789abcdefghijklmnopqrstuvwxyz', 16);
+const crypto = require('crypto');
 
 class IoredisStore {
   constructor (config = {}) {
     const { name, redisClient } = config;
-    this.name = name || nanoid();
+
+    if (typeof name !== 'string' || name.length === 0) {
+      throw new Error('Missing or invalid queue name');
+    }
+
+    this.name = name;
     this.client = redisClient;
     this.isReady = false;
   }
@@ -30,7 +33,7 @@ class IoredisStore {
     assert(this.ready, 'call setup() before using this store');
 
     // Create a new list to temporarily hold the batch
-    const batchId = this.name + '-' + nanoid();
+    const batchId = this.name + '-' + crypto.randomBytes(4).toString('hex');
 
     // Pop the required number of items off the queue and onto the batch
     const cmds = (new Array(batchSize)).fill(['rpoplpush', this.name, batchId]);
