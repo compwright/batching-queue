@@ -1,5 +1,4 @@
 const assert = require('assert');
-const { promisify } = require('util');
 const { customAlphabet } = require('nanoid');
 
 const nanoid = customAlphabet('0123456789abcdefghijklmnopqrstuvwxyz', 16);
@@ -10,14 +9,8 @@ class RedisStore {
 
     this.name = name || nanoid();
 
-    this.client = {
-      lpush: promisify(redisClient.lpush).bind(redisClient),
-      unlink: promisify(redisClient.unlink).bind(redisClient),
-      llen: promisify(redisClient.llen).bind(redisClient),
-      quit: promisify(redisClient.quit).bind(redisClient),
-      batch: redisClient.batch.bind(redisClient)
-    };
 
+    this.client = redisClient;
     this.isReady = false;
   }
 
