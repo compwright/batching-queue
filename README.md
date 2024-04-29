@@ -1,7 +1,5 @@
 # batching-queue
 
-[![Build Status](https://travis-ci.org/compwright/batching-queue.svg?branch=master)](https://travis-ci.org/compwright/batching-queue)
-[![Dependency Status](https://img.shields.io/david/compwright/batching-queue.svg?style=flat-square)](https://david-dm.org/compwright/batching-queue)
 [![Download Status](https://img.shields.io/npm/dm/batching-queue.svg?style=flat-square)](https://www.npmjs.com/package/batching-queue)
 [![Sponsor on GitHub](https://img.shields.io/static/v1?label=Sponsor&message=❤&logo=GitHub&link=https://github.com/sponsors/compwright)](https://github.com/sponsors/compwright)
 
