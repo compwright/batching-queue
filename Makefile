@@ -6,3 +6,5 @@ lint:
 test: lint
 	NODE_OPTIONS=--experimental-vm-modules node_modules/.bin/jest --detectOpenHandles src
 
+release:
+	node_modules/.bin/standard-version
