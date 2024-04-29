@@ -12,8 +12,8 @@
     "url": "https://github.com/compwright/batching-queue"
   },
   "engines": {
-    "node": ">= 10",
-    "npm": ">= 3"
+    "node": ">= 20",
+    "npm": ">= 10"
   },
   "main": "./src/",
   "directories": {
