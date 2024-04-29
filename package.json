@@ -17,41 +17,15 @@
   },
   "type": "module",
   "main": "./src/",
-  "directories": {
-    "test": "tests"
-  },
-  "scripts": {
-    "publish": "git push origin --tags",
-    "release:pre": "npm version prerelease && npm publish --tag pre",
-    "release:patch": "npm version patch && npm publish",
-    "release:minor": "npm version minor && npm publish",
-    "release:major": "npm version major && npm publish",
-    "lint": "semistandard src/**/*.js tests/**/*.js --fix",
-    "mocha": "mocha ./tests",
-    "coverage": "nyc npm run mocha",
-    "test": "npm run lint && npm run coverage"
-  },
   "devDependencies": {
     "ioredis": "^4.28.3",
-    "mocha": "latest",
-    "nyc": "latest",
+    "jest": "latest",
     "@redis/client": "^1.5.14",
     "standard": "latest",
   },
   "standard": {
     "env": [
-      "mocha"
-    ]
-  },
-  "nyc": {
-    "cache": true,
-    "cacheDir": ".nyc_cache",
-    "include": [
-      "src/**/*.js"
-    ],
-    "reporter": [
-      "lcov",
-      "text"
+      "jest"
     ]
   }
 }
