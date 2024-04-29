@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.3](https://github.com/compwright/batching-queue/compare/v2.0.2...v2.0.3) (2024-04-29)
+
+
+### Bug Fixes
+
+* fix runtime error loading stores ([899a378](https://github.com/compwright/batching-queue/commit/899a378ee5a38db732dd0a8985d0a5dcefb6b8be))
+
 ### [2.0.2](https://github.com/compwright/batching-queue/compare/v2.0.1...v2.0.2) (2024-04-29)
 
 
