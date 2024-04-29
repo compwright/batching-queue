@@ -16,7 +16,7 @@
     "npm": ">= 10"
   },
   "type": "module",
-  "main": "./src/",
+  "main": "./src/index.js",
   "devDependencies": {
     "ioredis": "^4.28.3",
     "jest": "latest",
