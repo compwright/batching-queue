@@ -3,19 +3,19 @@ import crypto from 'node:crypto'
 
 export class RedisStore {
   constructor (config = {}) {
-    const { name, redisClient } = config;
+    const { name, redisClient } = config
 
     if (typeof name !== 'string' || name.length === 0) {
-      throw new Error('Missing or invalid queue name');
+      throw new Error('Missing or invalid queue name')
     }
 
-    this.name = name;
-    this.client = redisClient;
-    this.isReady = false;
+    this.name = name
+    this.client = redisClient
+    this.isReady = false
   }
 
   async setup () {
-    this.isReady = true;
+    this.isReady = true
   }
 
   async destroy () {
@@ -30,10 +30,10 @@ export class RedisStore {
   }
 
   async dequeue (batchSize) {
-    assert(this.ready, 'call setup() before using this store');
+    assert(this.ready, 'call setup() before using this store')
 
     // Create a new list to temporarily hold the batch
-    const batchId = this.name + '-' + crypto.randomBytes(4).toString('hex');
+    const batchId = this.name + '-' + crypto.randomBytes(4).toString('hex')
 
     // Pop the required number of items off the queue and onto the batch
     let batch = this.client.MULTI()
@@ -45,12 +45,12 @@ export class RedisStore {
 
     // Trim null values from the end, if any
     if (batch.indexOf(null) > -1) {
-      batch.splice(batch.indexOf(null));
+      batch.splice(batch.indexOf(null))
     }
 
     await this.client.UNLINK(batchId)
 
-    return batch.map(item => JSON.parse(item));
+    return batch.map(item => JSON.parse(item))
   }
 
   get length () {
@@ -59,6 +59,6 @@ export class RedisStore {
   }
 
   get ready () {
-    return this.isReady;
+    return this.isReady
   }
 }

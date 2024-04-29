@@ -35,10 +35,10 @@
     "ioredis": "^4.28.3",
     "mocha": "latest",
     "nyc": "latest",
-    "semistandard": "latest"
     "@redis/client": "^1.5.14",
+    "standard": "latest",
   },
-  "semistandard": {
+  "standard": {
     "env": [
       "mocha"
     ]
