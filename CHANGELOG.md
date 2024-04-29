@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.1](https://github.com/compwright/batching-queue/compare/v2.0.0...v2.0.1) (2024-04-29)
+
+
+### Bug Fixes
+
+* fix deprecation warning ([9834e00](https://github.com/compwright/batching-queue/commit/9834e00cd548bb6598676da665dffd8254296ab1))
+
 ## [2.0.0](https://github.com/compwright/batching-queue/compare/v1.1.0...v2.0.0) (2024-04-29)
 
 
