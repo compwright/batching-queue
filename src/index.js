@@ -1,2 +1,2 @@
 export * from './queue.js'
-export * from './stores.js'
+export * from './stores/index.js'
