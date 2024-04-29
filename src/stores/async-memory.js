@@ -1,6 +1,6 @@
-const assert = require('assert');
+import assert from 'node:assert'
 
-class AsyncMemoryStore {
+export class AsyncMemoryStore {
   async setup () {
     this.store = [];
   }
@@ -28,5 +28,3 @@ class AsyncMemoryStore {
     return Array.isArray(this.store);
   }
 }
-
-module.exports = AsyncMemoryStore;

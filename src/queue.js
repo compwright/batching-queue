@@ -1,5 +1,5 @@
-const assert = require('assert')
-const EventEmitter = require('events')
+import assert from 'node:assert'
+import EventEmitter from 'node:events'
 
 class BatchingQueue extends EventEmitter {
     constructor(config = {}) {

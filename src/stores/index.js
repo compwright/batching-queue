@@ -1,6 +1,4 @@
-module.exports = {
-  MemoryStore: require('./memory'),
-  AsyncMemoryStore: require('./async-memory'),
-  RedisStore: require('./redis'),
-  IoredisStore: require('./ioredis')
-};
+export * from './memory'
+export * from './async-memory'
+export * from './redis'
+export * from './ioredis'

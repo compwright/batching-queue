@@ -1,4 +1,2 @@
-module.exports = {
-    BatchingQueue: require('./queue'),
-    ...require('./stores')
-}
+export * from './queue'
+export * from './stores'

@@ -1,7 +1,7 @@
-const assert = require('assert');
-const crypto = require('crypto');
+import assert from 'node:assert'
+import crypto from 'node:crypto'
 
-class IoredisStore {
+export class IoredisStore {
   constructor (config = {}) {
     const { name, redisClient } = config;
 
@@ -61,5 +61,3 @@ class IoredisStore {
     return this.isReady;
   }
 }
-
-module.exports = IoredisStore;

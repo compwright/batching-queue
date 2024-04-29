@@ -28,7 +28,7 @@ npm install batching-queue
 ## Example Usage
 
 ```javascript
-const {BatchingQueue, MemoryStore} = require('batching-queue')
+import { BatchingQueue, MemoryStore } from 'batching-queue'
 
 const queue = new BatchingQueue({
   store: new MemoryStore(),
