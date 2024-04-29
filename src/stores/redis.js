@@ -19,14 +19,14 @@ export class RedisStore {
   }
 
   async destroy () {
-    await this.client.unlink(this.name);
-    this.isReady = false;
+    await this.client.UNLINK(this.name)
+    this.isReady = false
   }
 
   async enqueue (item) {
-    assert(this.ready, 'call setup() before using this store');
-    assert.notStrictEqual(typeof item, 'null', 'null values are not allowed');
-    return this.client.lpush(this.name, JSON.stringify(item));
+    assert(this.ready, 'call setup() before using this store')
+    assert.notStrictEqual(typeof item, 'null', 'null values are not allowed')
+    return await this.client.LPUSH(this.name, JSON.stringify(item))
   }
 
   async dequeue (batchSize) {
@@ -36,30 +36,26 @@ export class RedisStore {
     const batchId = this.name + '-' + crypto.randomBytes(4).toString('hex');
 
     // Pop the required number of items off the queue and onto the batch
-    const batch = await new Promise((resolve, reject) => {
-      const cmds = (new Array(batchSize)).fill(['rpoplpush', this.name, batchId]);
-      this.client.batch(cmds).exec((err, res) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(res);
-        }
-      });
-    });
+    let batch = this.client.MULTI()
+    for (let i = 0; i < batchSize; i++) {
+      batch = batch.RPOPLPUSH(this.name, batchId)
+    }
+
+    batch = await batch.exec()
 
     // Trim null values from the end, if any
     if (batch.indexOf(null) > -1) {
       batch.splice(batch.indexOf(null));
     }
 
-    await this.client.unlink(batchId);
+    await this.client.UNLINK(batchId)
 
     return batch.map(item => JSON.parse(item));
   }
 
   get length () {
-    assert(this.ready, 'call setup() before using this store');
-    return this.client.llen(this.name);
+    assert(this.ready, 'call setup() before using this store')
+    return this.client.LLEN(this.name)
   }
 
   get ready () {
